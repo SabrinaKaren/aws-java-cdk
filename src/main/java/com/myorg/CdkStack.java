@@ -7,6 +7,7 @@ import software.amazon.awscdk.StackProps;
 // import software.amazon.awscdk.services.sqs.Queue;
 
 public class CdkStack extends Stack {
+
     public CdkStack(final Construct scope, final String id) {
         this(scope, id, null);
     }
@@ -21,4 +22,5 @@ public class CdkStack extends Stack {
         //         .visibilityTimeout(Duration.seconds(300))
         //         .build();
     }
+    
 }
