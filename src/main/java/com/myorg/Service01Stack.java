@@ -37,7 +37,7 @@ public class Service01Stack extends Stack {
                 .taskImageOptions(ApplicationLoadBalancedTaskImageOptions
                         .builder()
                         .containerName("curso_aws_project01")
-                        .image(ContainerImage.fromRegistry("sabrinakaren/curso_aws_project01:2.0.0"))
+                        .image(ContainerImage.fromRegistry("sabrinakaren/curso_aws_project01:3.0.0"))
                         .containerPort(9000)
                         .logDriver(LogDriver.awsLogs(AwsLogDriverProps
                                 .builder()
