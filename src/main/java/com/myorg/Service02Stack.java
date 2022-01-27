@@ -8,6 +8,7 @@ import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.applicationautoscaling.EnableScalingProps;
+import software.amazon.awscdk.services.dynamodb.Table;
 import software.amazon.awscdk.services.ecs.CpuUtilizationScalingProps;
 import software.amazon.awscdk.services.ecs.AwsLogDriverProps;
 import software.amazon.awscdk.services.ecs.Cluster;
@@ -25,11 +26,11 @@ import software.amazon.awscdk.services.sqs.Queue;
 
 public class Service02Stack extends Stack {
         
-        public Service02Stack(final Construct scope, final String id, Cluster cluster, SnsTopic productEventsTopic) {
-            this(scope, id, null, cluster, productEventsTopic);
+        public Service02Stack(final Construct scope, final String id, Cluster cluster, SnsTopic productEventsTopic, Table productEventsDdb) {
+            this(scope, id, null, cluster, productEventsTopic, productEventsDdb);
         }
     
-        public Service02Stack(final Construct scope, final String id, final StackProps props, Cluster cluster, SnsTopic productEventsTopic) {
+        public Service02Stack(final Construct scope, final String id, final StackProps props, Cluster cluster, SnsTopic productEventsTopic, Table productEventsDdb) {
 
                 super(scope, id, props);
 
@@ -96,6 +97,7 @@ public class Service02Stack extends Stack {
                         .build());
 
                 productEventsQueue.grantConsumeMessages(service02.getTaskDefinition().getTaskRole());
+                productEventsDdb.grantReadWriteData(service02.getTaskDefinition().getTaskRole());
     
         }
     
