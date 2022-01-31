@@ -17,10 +17,20 @@ public class CdkApp {
 
         SnsStack snsStack = new SnsStack(app, "Sns");
 
-        Service01Stack service01Stack = new Service01Stack(app, "Service01", clusterStack.getCluster(), snsStack.getProductEventsTopic());
+        InvoiceAppStack invoiceAppStack = new InvoiceAppStack(app, "InvoiceApp");
+
+        Service01Stack service01Stack = new Service01Stack(
+            app,
+            "Service01",
+            clusterStack.getCluster(),
+            snsStack.getProductEventsTopic(),
+            invoiceAppStack.getBucket(),
+            invoiceAppStack.getS3InvoiceQueue()
+        );
         service01Stack.addDependency(clusterStack);
         service01Stack.addDependency(rdsStack);
         service01Stack.addDependency(snsStack);
+        service01Stack.addDependency(invoiceAppStack);
 
         DdbStack ddbStack = new DdbStack(app, "Ddb");
 
